@@ -1,0 +1,54 @@
+{
+  "name": "@samtayl/start-app",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Serve an express application with nice logging and extendable configuration.",
+  "keywords": [
+    "express"
+  ],
+  "license": "0BSD",
+  "author": "samtayl",
+  "homepage": "https://github.com/samtayl/start-app#readme",
+  "bugs": "https://github.com/samtayl/start-app/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samtayl/start-app"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "main": "src/startApp.js",
+  "exports": "./src/startApp.js",
+  "bin": "bin/start-app.js",
+  "scripts": {
+    "lint:code": "eslint --ext .js .",
+    "lint:code:fix": "yarn lint:code --fix",
+    "lint:other": "prettier --check \"**/*.{json,md,yaml,yml}\"",
+    "lint:other:fix": "yarn lint:other --write"
+  },
+  "dependencies": {
+    "convict": "^6.2.4",
+    "convict-format-with-validator": "^6.2.0",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "winston": "^3.9.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
+    "@samtayl/eslint-config": "^1.4.0",
+    "@samtayl/eslint-config-import": "^1.0.0",
+    "@samtayl/eslint-config-node": "^1.2.0",
+    "eslint": "^8.44.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "prettier": "^2.8.8"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "yarn@3.6.1"
+}
