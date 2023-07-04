@@ -1,4 +1,4 @@
 export default {
-  '*.js': 'eslint',
+  '*.{cjs,js}': 'eslint',
   '*.{json,md,yaml,yml}': 'prettier --check',
 };
