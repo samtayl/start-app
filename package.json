@@ -2,7 +2,7 @@
   "name": "@samtayl/start-app",
   "version": "0.1.0",
   "type": "module",
-  "description": "Serve an express application with nice logging and extendable configuration.",
+  "description": "Serve an application with nice logging and extendable configuration.",
   "keywords": [
     "express"
   ],
