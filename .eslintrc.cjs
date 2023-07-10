@@ -2,8 +2,8 @@ module.exports = {
   root: true,
   extends: [
     '@samtayl',
-    '@samtayl/import',
     '@samtayl/node',
+    '@samtayl/import',
   ],
   env: {
     es2024: true,
@@ -23,4 +23,14 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: [
+        'test/**/*.[jt]s?(x)',
+        '**/?(*.)+(spec|test).[jt]s?(x)',
+      ],
+      plugins: ['jest'],
+      extends: ['plugin:jest/recommended'],
+    },
+  ],
 };
