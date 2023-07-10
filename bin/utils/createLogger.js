@@ -5,6 +5,8 @@ const createLogger = ({level: levelArg} = {}) => {
     level: levelArg,
     transports: [
       new winston.transports.Console({
+        stderrLevels: ['error'],
+        consoleWarnLevels: ['warn'],
         format: winston.format.combine(
           winston.format.errors({stack: true}),
           winston.format((info) => {
