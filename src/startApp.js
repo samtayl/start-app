@@ -1,29 +1,35 @@
 import {pathToFileURL} from 'url';
 import convict from 'convict';
+import convictFormatWithValidator from 'convict-format-with-validator';
 import express from 'express';
 import morgan from 'morgan';
-import baseConfigManager from './baseConfigSchema.js';
+import baseConfigSchema from './baseConfigSchema.js';
 import {readJsonFileThatMayNotExist} from './file.js';
 import Server from './Server.js';
 
+convict.addFormats(convictFormatWithValidator);
+
 const startApp = async function({logger}) {
-  const appConfigManagerModulePath = baseConfigManager.get('configSchemaPath');
-  const appConfigManagerModuleURL = pathToFileURL(appConfigManagerModulePath);
-  let appConfigManager;
+  const baseConfigManager = convict(baseConfigSchema);
+  const appConfigSchemaModulePath = baseConfigManager.get('configSchemaPath');
+  const appConfigSchemaModuleURL = pathToFileURL(appConfigSchemaModulePath);
+  let appConfigSchema;
 
   try {
-    const appConfigManagerModule = await import(appConfigManagerModuleURL);
+    const appConfigSchemaModule = await import(appConfigSchemaModuleURL);
 
-    appConfigManager = appConfigManagerModule.default;
+    appConfigSchema = appConfigSchemaModule.default;
   }
   catch (error) {
     if (error.code === 'ERR_MODULE_NOT_FOUND') {
-      appConfigManager = convict({});
+      appConfigSchema = {};
     }
     else {
       throw error;
     }
   }
+
+  const appConfigManager = convict(appConfigSchema);
 
   const getSharedConfigValue = (name) => (
     appConfigManager.has(name)

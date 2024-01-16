@@ -1,6 +1,4 @@
-import convict from 'convict';
-
-export default convict({
+const configSchema = {
   port: {
     doc: 'The port for the server to listen on',
     format: 'port',
@@ -8,4 +6,6 @@ export default convict({
     env: 'PORT',
     arg: 'port',
   },
-});
+};
+
+export default configSchema;

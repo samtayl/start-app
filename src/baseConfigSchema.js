@@ -1,6 +1,4 @@
 import path from 'path';
-import convict from 'convict';
-import convictFormatWithValidator from 'convict-format-with-validator';
 
 const baseConfigSchema = {
   env: {
@@ -54,8 +52,4 @@ const baseConfigSchema = {
   },
 };
 
-convict.addFormats(convictFormatWithValidator);
-
-const baseConfigManager = convict(baseConfigSchema);
-
-export default baseConfigManager;
+export default baseConfigSchema;
