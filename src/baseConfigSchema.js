@@ -17,6 +17,13 @@ const baseConfigSchema = {
     env: 'CONFIG_PATH',
     arg: 'configPath',
   },
+  configSchemaPath: {
+    doc: 'The path of the config schema file',
+    format: String,
+    default: path.resolve(process.cwd(), 'configSchema.js'),
+    env: 'CONFIG_SCHEMA_PATH',
+    arg: 'configSchemaPath',
+  },
   appPath: {
     doc: 'The path of the app file',
     format: String,

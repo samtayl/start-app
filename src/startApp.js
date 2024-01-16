@@ -1,4 +1,3 @@
-import path from 'path';
 import {pathToFileURL} from 'url';
 import convict from 'convict';
 import express from 'express';
@@ -8,8 +7,7 @@ import {readJsonFileThatMayNotExist} from './file.js';
 import Server from './Server.js';
 
 const startApp = async function({logger}) {
-  const cwd = process.cwd();
-  const appConfigManagerModulePath = path.resolve(cwd, 'configSchema.js');
+  const appConfigManagerModulePath = baseConfigManager.get('configSchemaPath');
   const appConfigManagerModuleURL = pathToFileURL(appConfigManagerModulePath);
   let appConfigManager;
 
