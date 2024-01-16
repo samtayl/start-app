@@ -13,10 +13,6 @@ const server = await startApp({logger});
 
 for (const eventName of ['SIGINT', 'SIGTERM']) {
   process.once(eventName, async () => {
-    logger.debug('Stopping server');
-
     await server.stop();
-
-    logger.verbose('Server stopped');
   });
 }

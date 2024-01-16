@@ -92,27 +92,11 @@ const startApp = async function({logger}) {
     res.send(error.message);
   });
 
-  const server = new Server(wrapperApp);
+  const server = new Server({logger}, wrapperApp);
   const port = getSharedConfigValue('port');
   const hostname = getSharedConfigValue('hostname');
 
-  logger.debug(`Starting server at http://${hostname}:${port}`);
-
-  await server.start({port, host: hostname});
-
-  const {
-    family: boundFamily,
-    address: boundHostname,
-    port: boundPort,
-  } = server.server.address();
-
-  const boundHostnameString = boundFamily === 'IPv6'
-    ? `[${boundHostname}]`
-    : boundHostname;
-
-  logger.info(
-    `Server started at http://${boundHostnameString}:${boundPort}`,
-  );
+  server.start(port, hostname);
 
   return server;
 };
