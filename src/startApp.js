@@ -29,17 +29,12 @@ const startApp = async function({logger}) {
     }
   }
 
-  const appConfigManager = convict(appConfigSchema);
+  const mergedConfigSchema = Object.assign({}, baseConfigSchema, appConfigSchema);
+  const appConfigManager = convict(mergedConfigSchema);
 
-  const getSharedConfigValue = (name) => (
-    appConfigManager.has(name)
-      ? appConfigManager.get(name)
-      : baseConfigManager.get(name)
-  );
+  logger.level = appConfigManager.get('logLevel');
 
-  logger.level = getSharedConfigValue('logLevel');
-
-  const appConfigPath = getSharedConfigValue('configPath');
+  const appConfigPath = appConfigManager.get('configPath');
 
   logger.debug(`Reading config file at ${appConfigPath}`);
 
@@ -51,7 +46,7 @@ const startApp = async function({logger}) {
     baseConfigManager.load(appConfigFileContents);
     appConfigManager.load(appConfigFileContents);
 
-    logger.level = getSharedConfigValue('logLevel');
+    logger.level = appConfigManager.get('logLevel');
 
     logger.verbose(`Loaded config file at ${appConfigPath}`);
   }
@@ -71,7 +66,7 @@ const startApp = async function({logger}) {
     },
   }));
 
-  const createAppModulePath = getSharedConfigValue('appPath');
+  const createAppModulePath = appConfigManager.get('appPath');
   const createAppModuleURL = pathToFileURL(createAppModulePath);
   const createAppModule = await import(createAppModuleURL);
   const createApp = createAppModule.default;
@@ -93,8 +88,8 @@ const startApp = async function({logger}) {
   });
 
   const server = new Server({logger}, wrapperApp);
-  const port = getSharedConfigValue('port');
-  const hostname = getSharedConfigValue('hostname');
+  const port = appConfigManager.get('port');
+  const hostname = appConfigManager.get('hostname');
 
   server.start(port, hostname);
 
