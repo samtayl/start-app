@@ -54,7 +54,7 @@ The default location of the configuration file is `config.json` in the directory
 cross-env PORT=80 npm start-app
 ```
 
-NOTE: [`cross-env`](https://www.npmjs.com/package/cross-env) is a seperate package used to set environment variables consistently accross platforms.
+NOTE: [`cross-env`](https://www.npmjs.com/package/cross-env) is a seperate package used to set environment variables consistently across platforms.
 
 #### Using command line arguments
 
